@@ -189,9 +189,19 @@ public class BolsaDeEmpleo {
      */
     public int buscarAspirante(String nombre) {
         int posicion = -1;
-
         // TODO: Realizar el ejercicio correspondiente
-
+        // Se declara una variable contador que se inicializa en 0.
+        int count = 0;
+        // Se recorre el bucle del arrayList Aspirante
+        for (Aspirante asp:aspirantes) {
+            // Condición del nombre ingresado es igual al método darNombre que recorre cada uno.
+            if(asp.darNombre().equals(nombre)){
+                // Se asigna el valor de contador a posicion.
+                posicion = count;
+            }
+            // Aumenta el contador
+            count++;
+        }
         return posicion;
     }
 
@@ -208,6 +218,24 @@ public class BolsaDeEmpleo {
         int fin = aspirantes.size() - 1;
 
         // TODO: Realizar el ejercicio correspondiente
+        // Mientras inicio (cero) sea mejor o igual al número de aspirantes -1
+        while (ini <= fin) {
+            // se promedia la posición
+            posicion = (ini+fin) / 2;
+            // Compara dos strings || nombre de cada aspirante con nombre ingresado
+            if ( aspirantes.get(posicion).darNombre().equalsIgnoreCase(nombre) )
+                // Retorna posicion.
+                return posicion;
+            // si no, debe cumplir devuelve el valor de carácter en el índice especificado. del nombre ingresado
+            // con respecto al nombre según posición
+            else if ( aspirantes.get(posicion).darNombre().charAt(0) < nombre.charAt(0) ) {
+                // Reasigna ini a posición + 1
+                ini = posicion+1;
+            } else {
+                // Si no cumple // Reasigna ini a posición + 1
+                fin = posicion-1;
+            }
+        }
 
         return posicion;
     }
@@ -222,7 +250,22 @@ public class BolsaDeEmpleo {
         int posicion = -1;
 
         // TODO: Realizar el ejercicio correspondiente
-
+        // Se declara variable edad (Edad máxima ejemplo)
+        int edad = 100;
+        // Se declara variable contador que empieza en Cero.
+        int count = 0;
+        // Se recorre en bucle el arrayList de Aspirante
+        for (Aspirante asp:aspirantes) {
+            // Se evalúa se la edad de cada aspirante es menor a la edad máxima definida anteriormente
+            if(asp.darEdad() < edad){
+                // Se asigna cada darEdad() a edad.
+                edad = asp.darEdad();
+                // Se reasigna posición
+                posicion = count;
+            }
+            // Se incrementa el contador
+            count++;
+        }
         return posicion;
     }
 
@@ -235,7 +278,22 @@ public class BolsaDeEmpleo {
         int posicion = -1;
 
         // TODO: Realizar el ejercicio correspondiente
-
+        // Se declara variable edad (Edad mínima laboral ejemplo)
+        int edad = 18;
+        // Se declara variable contador que empieza en Cero.
+        int count = 0;
+        // Se recorre en bucle el arrayList de Aspirante
+        for (Aspirante asp:aspirantes) {
+            // Se evalúa se la edad de cada aspirante es mayor a la edad máxima (18 años) definida anteriormente
+            if(asp.darEdad() > edad){
+                // Se asigna cada darEdad() a edad.
+                edad = asp.darEdad();
+                // Se reasigna posición
+                posicion = count;
+            }
+            // Se incrementa el contador
+            count++;
+        }
         return posicion;
     }
 
@@ -248,7 +306,20 @@ public class BolsaDeEmpleo {
         int posicion = -1;
 
         // TODO: Realizar el ejercicio correspondiente
-
+        // Se declara variable num_aspirantes al número de elementos de la lista.
+        int num_aspirantes = aspirantes.size();
+        // Se declara variable minima experiencia en cero (Para la condición de que sea mayor a cero)
+        int min_exp = 0;
+        // Se recorre el primer bucle desde 0 y menor al número de aspirantes.
+        for(int i = 0; i < num_aspirantes; i++) {
+            // Condición que evalúa los años de experiencia sean superior a cero.
+            if(aspirantes.get(i).darAniosExperiencia() > min_exp ){
+                // Se asigna nuevamente el valor de los años de expericencia de cada aspirante a min_exp
+                min_exp = aspirantes.get(i).darAniosExperiencia();
+                // SE reasigna posición con cada iteración de aspirante.
+                posicion = i;
+            }
+        }
         return posicion;
     }
 
@@ -263,7 +334,17 @@ public class BolsaDeEmpleo {
         boolean contratado = false;
 
         // TODO: Realizar el ejercicio correspondiente
-
+        // Se define variable con el método buscarAspirante pasando el argumento nombre.
+        int posicion = buscarAspirante(nombre);
+        // Se declara posicion en -1
+        int psc = -1;
+        // Sí la posición es diferente a -1 entra al condicional
+        if (psc != posicion) {
+            // El booleano contratado cambia a true
+            contratado = true;
+            // se remueve la posición del aspirante con el método remove()
+            var remove = aspirantes.remove(posicion);
+        }
         return contratado;
     }
 
@@ -277,10 +358,20 @@ public class BolsaDeEmpleo {
     public int eliminarAspirantesPorExperiencia(int aniosExperiencia) {
         int eliminados = 0;
 
-        int cont = 0;
-
         // TODO: Realizar el ejercicio correspondiente
-
+        // Se declara variable num_aspirantes al número de elementos de la lista.
+        int num_aspirantes = aspirantes.size()-1;
+        // Se recorre el primer bucle desde el número de aspirantes -1 y debe ser mayor a cero y disminuye con respecto
+        // a num_aspirtantes
+        for (int i = num_aspirantes; i >= 0; i--) {
+            // Sí los años de experiencia ingresados son iguales a los que tenga el aspirante cumple la condición
+            if (aspirantes.get(i).darAniosExperiencia() == aniosExperiencia) {
+                // remueve el aspirante.
+                aspirantes.remove(i);
+                // incrementa eliminados.
+                eliminados++;
+            }
+        }
         return eliminados;
     }
 
